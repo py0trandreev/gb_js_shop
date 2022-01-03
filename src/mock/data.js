@@ -40,9 +40,7 @@ function getProductList(count) {
     for (let i = 0; i < count; i++) {
         products.push(getProduct());
     }
-    console.log(JSON.stringify(products));  //JSON.stringify - строка набор символов. 
-    //Это позволяет превратить любой лбъект в json
-
+    console.log(JSON.stringify(products));
     return products
 }
 

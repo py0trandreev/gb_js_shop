@@ -36,8 +36,25 @@ app.post('/api/v1/cart', (req, res) => {
         if (!err) {
             const cart = JSON.parse(data);
             cart.push(req.body);
+
             fs.writeFile(cart_path, JSON.stringify(cart), 'utf-8', (err, data) => {
                 res.sendStatus(201)
+                console.log("товар добавлен в корзину")
+            })
+        } else {
+            res.status(500).send(err)
+        }
+    })
+})
+
+app.delete('/api/v1/cart', (req, res) => {
+    fs.readFile(cart_path, 'utf-8', (err, data) => {
+        if (!err) {
+            const cart = JSON.parse(data);
+            cart.pop();
+            fs.writeFile(cart_path, JSON.stringify(cart), 'utf-8', (err, data) => {
+                res.sendStatus(201)
+                console.log("товар удален из корзины")
             })
         } else {
             res.status(500).send(err)
