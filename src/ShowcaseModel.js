@@ -23,4 +23,6 @@ export default class ShowcaseModel extends ProductList {
         if (product) cart.add(product, onError)
     }
 
+
+
 }

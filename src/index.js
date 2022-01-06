@@ -13,15 +13,22 @@ const eventEmmiter = new EventEmitter()
 const cart = new CartModel(api, eventEmmiter)
 const showcase = new ShowcaseModel(api, eventEmmiter, cart)
 
+
 eventEmmiter.subscribe('showcaseFeched', (data) => {
-    console.log(data)
+    // console.log(JSON.stringify(data))
+    //showcase.list = data;
+    // console.log(data[0]['title'])
+    console.log(data);
 })
 
 eventEmmiter.subscribe('cartFeched', (data) => {
-    console.log(data)
+    console.log(data);
+
 })
 
-showcase.fetch()
-cart.fetch()
+showcase.fetch();
+cart.fetch();
+
+showcase.show();
 
 
