@@ -1,27 +1,36 @@
-import getProductList from "./mock/data.js";
-import renderGoodsList from "./showcase.js";
-import { send } from './utils.js';
+import ApiHandler from './ApiHandler.js';
+import CartModel from './CartModel.js';
+import ShowcaseModel from './ShowcaseModel.js';
+import EventEmitter from './EventEmitter.js';
+import '../public/style.css';
+import View from './View.js';
 
 const API_URL = 'http://localhost:3000/api/v1';
 
-let productList = [];
-let cart = [];
+const api = new ApiHandler(API_URL);
+const eventEmmiter = new EventEmitter();
 
-send((error) => { console.log(err) }, (res) => {
-    let list = JSON.parse(res);
-    console.log("res" + res);
-    productList = list;
-    renderGoodsList(productList);
-}, `${API_URL}/catalog`)
-console.log("beeee")
+const cart = new CartModel(api, eventEmmiter);
+const showcase = new ShowcaseModel(api, eventEmmiter, cart);
 
-//Пользователь добавляет товар в корзину
-let buyed = { id: 5, title: "new", price: 999 };
-send((error) => { console.log(err) }, (res) => {
-    cart.push(buyed)
-}, `${API_URL}/cart`, 'POST', JSON.stringify(buyed), { "content-type": "application/json" })
 
-//Пользователь удаляет товар из корзинки
-send((error) => { console.log(err) }, (res) => {
-    //cart.pop()
-}, `${API_URL}/cart`, 'DELETE', JSON.stringify(buyed), { "content-type": "application/json" })
+eventEmmiter.subscribe('showcaseFeched', (data) => {
+    // console.log(JSON.stringify(data))
+    //showcase.list = data;
+    // console.log(data[0]['title'])
+    console.log(data);
+});
+
+eventEmmiter.subscribe('cartFeched', (data) => {
+    console.log(data);
+
+});
+
+eventEmmiter.subscribe('showProductList', (data) => {
+    const $showcase = document.querySelector('.showcase');
+    const viewItem = new View(data);
+    viewItem.renderItems($showcase, data);
+});
+
+showcase.fetch();
+cart.fetch();

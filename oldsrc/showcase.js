@@ -7,11 +7,11 @@ const renderGoodsItem = ({ title, price }) => {
 const renderGoodsList = (list) => {
     let goodsList = list.map(
         (item) => {
-            return renderGoodsItem(item)
+            return renderGoodsItem(item);
         }
     ).join('');
 
     $showcase.insertAdjacentHTML('beforeend', goodsList);
-}
+};
 
 export default renderGoodsList
