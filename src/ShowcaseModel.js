@@ -14,6 +14,8 @@ export default class ShowcaseModel extends ProductList {
                 this.list = JSON.parse(data);
                 this.eventEmmiter.emit('showcaseFeched', this.list);
                 this.eventEmmiter.emit('showProductList', this.list);
+                // this.eventEmmiter.emit('filterProductList', this.list);
+
             },
             onError
         );

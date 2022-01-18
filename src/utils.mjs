@@ -10,6 +10,3 @@ export const pow = (a, n) => {
     return result;
 };
 
-// module.exports = {
-//     pow: pow
-// };

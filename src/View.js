@@ -1,5 +1,5 @@
 export default class View {
-    constructor(data) {
+    constructor(data, eventEmiter) {
         this.data = data;
     }
 
@@ -7,13 +7,16 @@ export default class View {
         return `<div class="goods-item"><h3>${title}</h3><p>${price}</p></div>`;
     }
 
+
     renderItem(placeToInsert, itemObject) {
         placeToInsert.insertAdjacentHTML('beforeend',
             this.getProductItem(itemObject));
     }
 
-    renderItems(placeToInsert, ObjectItems) {
-        ObjectItems.map((item) => {
+
+    renderItems(placeToInsert, objectItems) {
+        //objectItems=ArrayOfObjects
+        objectItems.map((item) => {
             this.renderItem(placeToInsert, item);
         }).join('');
     }
