@@ -1,6 +1,7 @@
 export default class ProductList {
     constructor(list) {
-        this.list = list
+        this.list = list;
+        this.itemIndex = -1;
     }
 
     getList() {
@@ -11,20 +12,20 @@ export default class ProductList {
         const index = this.list.findIndex((item) => item.id === id);
 
         if (index >= 0) {
-            return this.list[index]
+            this.itemIndex = index;
+            return this.list[index];
         }
 
         return false;
     }
 
-    remove(id) {
+    removeById(id) {
         const index = this.list.findIndex((item) => item.id === id);
 
         if (index >= 0) {
             this.list = [...this.list.slice(0, index), ...this.list.slice(index + 1)]
             return true;
         }
-
         return false;
     }
 }

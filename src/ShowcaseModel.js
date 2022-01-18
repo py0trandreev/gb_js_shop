@@ -1,4 +1,4 @@
-import ProductList from './ProductList.js';
+import ProductList from './ProductList.mjs';
 
 export default class ShowcaseModel extends ProductList {
     constructor(apiHandler, eventEmiter, cart) {
@@ -14,6 +14,8 @@ export default class ShowcaseModel extends ProductList {
                 this.list = JSON.parse(data);
                 this.eventEmmiter.emit('showcaseFeched', this.list);
                 this.eventEmmiter.emit('showProductList', this.list);
+                // this.eventEmmiter.emit('filterProductList', this.list);
+
             },
             onError
         );
@@ -22,7 +24,7 @@ export default class ShowcaseModel extends ProductList {
     buy(id, onError) {
         const product = this.find(id);
         if (product) {
-            cart.add(product, onError);
+            this.cart.add(product, onError);
         }
     }
 

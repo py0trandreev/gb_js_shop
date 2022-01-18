@@ -1,4 +1,4 @@
-import ProductList from './ProductList.js'
+import ProductList from './ProductList.mjs';
 
 export default class CartModel extends ProductList {
     constructor(apiHandler, eventEmmiter) {
@@ -10,7 +10,7 @@ export default class CartModel extends ProductList {
     fetch(onError) {
         this.api.getCart(
             (data) => {
-                this.list = JSON.parse(data)
+                this.list = JSON.parse(data);
                 this.eventEmmiter.emit('cartFeched', this.list);
             },
             onError
@@ -27,14 +27,19 @@ export default class CartModel extends ProductList {
         );
     }
 
+
+
+
     remove(id, onError) {
         if (this.find(id)) {
             this.api.removeFromCart(
                 () => {
-                    this.remove(id);
+                    this.removeById(id);
+                    // this.list = [...this.list.slice(0, index), ...this.list.slice(index + 1)];
+                    // console.log(`index ${index}`);
                 },
                 onError,
-                this.list[index]
+                this.list[this.itemIndex]
             );
         }
     }
